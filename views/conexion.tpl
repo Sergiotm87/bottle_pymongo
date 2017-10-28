@@ -27,36 +27,37 @@
   <link rel="icon" type="image/png" href="images/favicon.png">
 
 </head>
+</head>
 <body>
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="one-half column" style="margin-top: 25%">
+      <div class="one-half column" style="margin-top: 10%">
         <h4>Conexion</h4>
-        <form>
+        <form action="/login" method="post">
           <div class="row">
             <div class="six columns">
               <label for="UserInput">Usuario</label>
-              <input class="u-full-width" id="UserInput" type="usuario">
+              <input class="u-full-width" name="UserInput" type="usuario">
             </div>
             <div class="six columns">
               <label for="PasswordInput">Contraseña</label>
-              <input class="u-full-width" id="PasswordInput" type="password">
+              <input class="u-full-width" name="PasswordInput" type="password">
             </div>
           </div>
           <div class="row">
             <div class="six columns">
               <label for="DatabaseInput">Base de datos</label>
-              <input class="u-full-width" id="DatabaseInput" type="conexion">
+              <input class="u-full-width" name="DatabaseInput" type="conexion">
             </div>
             <div class="six columns">
               <label for="PasswordInput">Host</label>
-              <input class="u-full-width" id="HostInput" type="host">
+              <input class="u-full-width" name="HostInput" type="host">
             </div>
           </div>
-          <input class="button-primary" value="Login" type="submit">
+          <input class="button-primary" value="login" type="submit">
         </form>
       </div>
     </div>

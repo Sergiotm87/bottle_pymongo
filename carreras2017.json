@@ -1,0 +1,29 @@
+{
+  "carreras 2017" : [
+      {
+        "nombre": "GRAND PRIX OF QATAR",
+        "nombreCircuito": "Losail International Circuit",
+        "pais": "Qatar"
+      },
+      {
+        "nombre": "GRAN PREMIO MOTUL DE LA REPUBLICA ARGENTINA",
+        "nombreCircuito": "Termas de Rio Hondo",
+        "pais": "Argentina"
+      },
+      {
+        "nombre": "RED BULL GRAND PRIX OF THE AMERICAS",
+        "nombreCircuito": "Circuit of the Americas",
+        "pais": "Estados Unidos"
+      },
+      {
+        "nombre": "GRAN PREMIO RED BULL DE ESPAÑA",
+        "nombreCircuito": "Circuito de Jerez",
+        "pais": "España"
+      },
+      {
+        "nombre": "HJC HELMETS GRAND PRIX DE FRANCE",
+        "nombreCircuito": "Le Mans",
+        "pais" : "Francia"
+      }
+  ]
+}
