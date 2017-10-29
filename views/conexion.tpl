@@ -37,6 +37,8 @@
       <div class="one-half column" style="margin-top: 10%">
         <h4>Conexion</h4>
         <form action="/login" method="post">
+          <fieldset>
+            <legend>Personalia:</legend>
           <div class="row">
             <div class="six columns">
               <label for="UserInput">Usuario</label>
@@ -58,6 +60,7 @@
             </div>
           </div>
           <input class="button-primary" value="login" type="submit">
+         </fieldset>
         </form>
       </div>
     </div>

@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-from bottle import route, run, template, static_file, request
+from bottle import route, run, template, static_file, request, redirect, response
 import json
 from pprint import pprint
-# from pymongo import MongoClient
+import pymongo
 
 @route('/')
 def index():
+
     return template("conexion.tpl")
 
 
@@ -16,45 +17,55 @@ def login():
     password = request.forms.get('PasswordInput')
     database = request.forms.get('DatabaseInput')
     host = request.forms.get('HostInput')
-    # try:
-    #     MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
 
-    return 'Hello %s!'%usuario
-    #return template('<b>Hello {{name}}</b>!', name=usuario)
-    #return template("menu.tpl")
+    uri = 'mongodb://%s:%s@%s/%s' % (usuario, password, host, database)
+    client = pymongo.MongoClient(uri)
+    try:
+        client.admin.command('ismaster')
+        response.set_cookie('uri',uri)
+        redirect("/menu")
+    except pymongo.errors.OperationFailure, e:
+        error = "Could not connect to MongoDB: %s" % e
+        return template("error.tpl",mensaje=error)
+
+
+@route('/menu')
+def menu():
+
+    return template("menu.tpl")
+
+@route('/motogp/<name>',method='POST')
+def carreras(name):
+
+    motogp2017=[]
+    motogp2017=database_query(name)
+
+    if name == 'carreras':
+        return template("carreras.tpl",datos=motogp2017,titulo="Carreras motogp 2017")
+    elif name == 'pilotos':
+        return template("pilotos.tpl",datos=motogp2017,titulo="Pilotos motogp 2017")
+    else:
+        error = "Error 404. Recurso no encontrado"
+        return template("error.tpl",mensaje=error)
+
+
+def database_query(query):
+
+    uri = request.get_cookie('uri')
+
+    client = pymongo.MongoClient(uri)
+    db=client.motogp
+    collection=db[query]
+    cursor = collection.find({})
+    motogp2017=[]
+    for document in cursor:
+        motogp2017.append(document)
+
+    return motogp2017
 
 @route('/<filename:path>')
+@route('/motogp/<filename:path>')
 def send_static(filename):
     return static_file(filename, root='views/')
 
-
-@route('/table')
-def table():
-
-## cambiar apertura de fichero json con el obtenido de la base de datos
-
-    with open('carreras2017.json') as data_file:
-        data = json.load(data_file)
-
-
-    motogp2017=[]
-
-    keylist = data.keys()
-    titulo = keylist[0]
-
-    claves = data[data.keys()[0]][0].keys() #claves del primer objeto de la primera clave
-
-
-    for i,elem in enumerate(data[titulo]):
-        diccionario=dict.fromkeys(claves)
-        diccionario[claves[0]] = elem["nombre"]
-        diccionario[claves[1]] = elem["nombreCircuito"]
-        diccionario[claves[2]] = elem["pais"]
-        motogp2017.insert(i,diccionario)
-
-    return template("table.tpl",datos=motogp2017,titulo=titulo)
-
-
 run(host='localhost', port=8080, debug=True)
-
-#source /home/sergio/virtualenv/pymongo/bin/activate
