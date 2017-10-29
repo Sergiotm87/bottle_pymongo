@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Your page title here :)</title>
+  <title>MOTOGP 2017 - Pilotos</title>
   <meta name="description" content="">
   <meta name="author" content="">
 

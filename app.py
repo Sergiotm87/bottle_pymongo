@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from bottle import route, run, template, static_file, request, redirect, response
 import json
-from pprint import pprint
 import pymongo
 
 @route('/')
@@ -25,7 +24,7 @@ def login():
         response.set_cookie('uri',uri)
         redirect("/menu")
     except pymongo.errors.OperationFailure, e:
-        error = "Could not connect to MongoDB: %s" % e
+        error = "Error. No se puede conectar con mongoDB: %s" % e
         return template("error.tpl",mensaje=error)
 
 
